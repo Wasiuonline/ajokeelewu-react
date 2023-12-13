@@ -1,43 +1,80 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
-    <meta
-      name="description"
-      content="Web site created using create-react-app"
-    />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-    <!--
-      manifest.json provides metadata used when your web app is installed on a
-      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
-    -->
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <!--
-      Notice the use of %PUBLIC_URL% in the tags above.
-      It will be replaced with the URL of the `public` folder during the build.
-      Only files inside the `public` folder can be referenced from the HTML.
+<html lang="en-US" dir="ltr">
+<head>
+<meta charset="utf-8">
+<base href="%PUBLIC_URL%/" target="_top">
+<link rel="shortcut icon" href="images/favicon.png"/>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Web site created using create-react-app"/>
+<link rel="apple-touch-icon" href="logo192.png">
+<!--
+manifest.json provides metadata used when your web app is installed on a
+user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
+-->
+<meta charset="UTF-8">
+<meta name="description" content="This is an e-commerce site">
+<meta name="robots" content="noodp"/>
+<meta name="keywords" content="Ajoke Elewu">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<link rel="manifest" href="manifest.json">
+<title>Ajoke Elewu</title>
 
-      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-      work correctly both with client-side routing and a non-root public URL.
-      Learn how to configure a non-root public URL by running `npm run build`.
-    -->
-    <title>React App</title>
-  </head>
-  <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
+<meta property="og:url" content="http://ajokeelewu-react.com/"> 
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ajoke Elewu"> 
+<meta property="og:description" content="This is an selling app"> 
+<meta property="og:image" content="http://ajokeelewu-react.com/images/ajoke-elewu-logo.png">
+<meta property="og:image:type" content="image/jpg">
+<meta property="og:image:width" content="210">
+<meta property="og:image:height" content="210">
 
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
+<link href="https://fonts.googleapis.com/css?family=Monda&display=swap" rel="stylesheet">
 
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
-  </body>
+<link type="text/css" rel="stylesheet" href="css/bootstrap.css">
+<link type="text/css" rel="stylesheet" href="css/font-awesome.css">
+<link type="text/css" rel="stylesheet" href="css/style.css">
+<link type="text/css" rel="stylesheet" href="css/owl.carousel.css">
+<link rel="stylesheet" href="css/jquery-ui.css">
+<link rel="stylesheet" href="css/select2.min.css">
+<style>
+.fa-spin{
+  -webkit-animation:fa-spin 2s infinite linear;
+  animation:fa-spin 2s infinite linear;
+}
+/*.fa-pulse{
+  -webkit-animation:fa-spin 1s infinite steps(8);
+  animation:fa-spin 1s infinite steps(8);
+}*/
+@-webkit-keyframes fa-spin{
+  0%{-webkit-transform:rotate(0deg);transform:rotate(0deg)}
+  100%{-webkit-transform:rotate(359deg);transform:rotate(359deg)}
+}
+@keyframes fa-spin{
+  0%{-webkit-transform:rotate(0deg);transform:rotate(0deg)}
+  100%{-webkit-transform:rotate(359deg);transform:rotate(359deg)}
+}
+
+svg{
+  vertical-align: -0.1em;
+}
+
+/*svg{
+    display: var(--fa-display, inline-block);
+    height: 1em;
+    overflow: visible;
+    vertical-align: -0.125em;
+}*/
+</style>
+</head>
+<body>
+  <noscript>You need to enable JavaScript to run this app.</noscript>
+  <div id="root"></div>
+<script src="js/bootstrap.min.js" type="text/javascript"></script>
+  <script src="js/jquery.js" type="text/javascript"></script>
+<script src="js/owl.carousel.js"></script>
+<script src="js/jquery-ui.js"></script>
+<script src="js/select2.min.js"></script>
+  <script type="text/javascript" src="js/general.js"></script>
+</body>
 </html>
