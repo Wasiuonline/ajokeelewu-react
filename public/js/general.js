@@ -99,30 +99,6 @@ $(".search-form-guide").slideToggle();
     });
 
 //////////////////////////////////////////////////
-$(".newsletter").submit(function(e){
-e.preventDefault();  
-var formdata = new FormData(this);
-$(".general-fade").show();
-var page_url = $(this).attr("action");
-
-$.ajax({
-url: page_url,
-type: "POST",
-data: formdata,
-mimeTypes:"multipart/form-data",
-contentType: false,
-cache: false,
-processData: false,
-success: function(data){
-$(".general-result").html(data);
-$(".general-fade").hide();
-},error: function(){
-sweetAlert("Notice", "Error occured!", "error");
-}
-});
-
-});
-///////////////////////////////////////////////
 
 $(".gen-save").click(function(){
 var this_name = $(this).attr("name");

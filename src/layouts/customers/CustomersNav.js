@@ -1,7 +1,7 @@
 import React, {useContext} from 'react';
 import {Link, NavLink} from "react-router-dom";
 import { FaAngleDown } from "react-icons/fa";
-import DataContext from '../context/DataContext';
+import DataContext from '../../context/DataContext';
 
 const Nav = () => {
 
@@ -17,12 +17,12 @@ const Nav = () => {
         <li><NavLink activeclassname="true" className="main-link" to="cat/all/">All in Stock</NavLink></li>
 
         {categories?
-        categories.map(value => { 
+        Object.values(categories).map(value => { 
         
          return (<li><Link className="main-link">{value.name} <FaAngleDown /></Link>
                 <ul className="sub-link login-form border-radius-bottom">
                 
-                {value.subcategories.map(val => { 
+                {Object.values(value.subcategories).map(val => { 
                 return (<li key={val.id}><NavLink activeclassname="true" className="" to={`/cat/${val.slug}`}>{val.name}</NavLink></li>);
                 })}
                 

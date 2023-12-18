@@ -30,8 +30,7 @@ const Login = () => {
                 // listarChamados.innerHTML = res.data;
                 setLoginRotate(false);
                 const data = {id: res.data.id, admin: res.data.admin, token: res.data.token}
-                localStorage.setItem("login", JSON.stringify(data));
-                handleUserData();
+                handleUserData(data);
                 setEmail("");
                 setPassword("");
                 setLoginError("");

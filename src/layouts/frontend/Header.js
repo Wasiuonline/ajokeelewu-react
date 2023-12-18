@@ -1,6 +1,6 @@
 import React, {useContext, useState} from 'react';
-import DataContext from '../context/DataContext';
-import {Outlet, Link, NavLink} from "react-router-dom";
+import DataContext from '../../context/DataContext';
+import {Link, NavLink} from "react-router-dom";
 import { FaUser, FaSignInAlt, FaSpinner, FaLaptop, FaSignOutAlt, FaShoppingCart, FaSearch } from "react-icons/fa";
 import { MdSpaceDashboard } from "react-icons/md";
 
@@ -46,7 +46,6 @@ const Header = () => {
         <div className="cart-items-display">{cartItems}</div>
         </Link></li>
         </ul>
-        <Outlet />
         
         </div>
         

@@ -1,21 +1,21 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import {Link} from "react-router-dom";
 import { FaEnvelope, FaSpinner } from "react-icons/fa";
-import axios from '../api/axios';
-import DataContext from '../context/DataContext';
+import axios from '../../api/axios';
+import DataContext from '../../context/DataContext';
 
 const Footer = () => {
 
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [newsletterRotate, setNewsletterRotate] = useState(false);
-    const [newsletterError, setNewsletterError] = useState("");
-    const {ErrorMsg} = useContext(DataContext);
+    const [newsletterMsg, setNewsletterMsg] = useState("");
+    const {SuccessMsg, ErrMsg} = useContext(DataContext);
 
     const handleNewsletter = (e) => {
     e.preventDefault();
     setNewsletterRotate(true);
-    setNewsletterError("");
+    setNewsletterMsg("");
 
     axios({
         method: 'post',
@@ -24,14 +24,15 @@ const Footer = () => {
     })
     .then(res => {
         console.log(res);
-        // setNewsletterRotate(false);
-        // setName("");
-        // setEmail("");
+        setNewsletterRotate(false); 
+        setName("");
+        setEmail("");
+        setNewsletterMsg(<SuccessMsg res={res} />);
     })
     .catch(err => {
         console.log(err);
-        // setNewsletterRotate(false);
-        // setNewsletterError(<ErrorMsg err={err} />);
+        setNewsletterRotate(false);
+        setNewsletterMsg(<ErrMsg err={err} />);
     })
 
     }
@@ -68,7 +69,9 @@ const Footer = () => {
 
 <div className="col-sm-4 subscribe">
 <div className="title btn">NEWSLETTER</div>
-<form className="newsletter" onSubmit={handleNewsletter}>
+<form onSubmit={handleNewsletter}>
+
+{newsletterMsg?newsletterMsg:""}
 
 <div className="form-group input-group">
 <span className="input-group-addon"><i className="fa"><label htmlFor="name">Name</label></i></span>
@@ -81,8 +84,7 @@ const Footer = () => {
 </div>
 
 <div>
-<button name="subscribe" className="btn gen-btn float-right" id="subscribe"><i className="fa fa-send"></i> Subscribe</button>
-<button className="btn gen-btn float-right" disabled = {newsletterRotate?true:false}>{newsletterRotate?<FaSpinner className="fa-spin" />:<FaEnvelope />} Login</button>
+<button className="btn gen-btn float-right" disabled = {newsletterRotate?true:false}>{newsletterRotate?<FaSpinner className="fa-spin" />:<FaEnvelope />} Subscribe</button>
 
 </div>	
 
