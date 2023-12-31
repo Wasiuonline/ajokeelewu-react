@@ -670,8 +670,14 @@ border:1px solid #f66;
 text-decoration:none;
 float:left;
 }
+div.page-nos a *{
+color:#f11;
+}
 div.page-nos a:hover, div.page-nos a.active{
 background:#f66;
+color:#fff;
+}
+div.page-nos a:hover *, div.page-nos a.active *{
 color:#fff;
 }
 

@@ -1,15 +1,14 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import {Link} from "react-router-dom";
 import {decode} from 'html-entities';
 import { FaSpinner } from "react-icons/fa";
 
-const Pagination = ({links, setParam, paramLoader}) => {
-
+const Pagination = ({links, setParam, param}) => {
+  const [clicked, setClicked] = useState("temp");
   return (
     <div className="page-nos">
-    {paramLoader?<p className="align-center" style={{paddingTop:"20px"}}><FaSpinner className="fa-spin" style={{fontSize:"25px"}} /></p>:""}
      {Object.values(links).map((value, index) => { 
-        return <Link key={index} onClick={()=>setParam(value.url)} className={value.active ? "active":""}>{decode(value.label)}</Link>
+        return <Link key={index} onClick={(e)=>{setParam(value.url); setClicked(index);}} className={value.active ? "active":""}>{param==value.url && clicked === index ? <FaSpinner className="fa-spin" /> : ""} {decode(value.label)}</Link>
      })}
      </div>
   )

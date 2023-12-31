@@ -6,16 +6,16 @@ import { FaSpinner } from "react-icons/fa";
 import { AppName } from '../components/General';
 
 const Home = () => {
-    const [homeContent, setHomeContent] = useState("");
-    const [homeIndex, setHomeIndex] = useState("");
+    const [pageContent, setPageContent] = useState("");
+    const [pageIndex, setPageIndex] = useState("");
     const {user, cartItems, handleCart, handleCartItems} = useContext(DataContext);
     const title = "Home | " + AppName;
     document.title = title;
 
     useEffect(() => {
-        if(homeContent !== "" && homeIndex !== ""){
-        const key = homeIndex;
-        let val = homeContent[key];
+        if(pageContent !== "" && pageIndex !== ""){
+        const key = pageIndex;
+        let val = pageContent[key];
         let qty = (cartItems !== "" && val.item_id in cartItems)?cartItems[val.item_id].selected_qty:0;
         val = {...val, selected_qty: qty + 1};
         val = (val.sizes && Object.keys(val.sizes).length > 0)?{...val, selected_size:0}:val; 
@@ -28,9 +28,9 @@ const Home = () => {
         });
         handleCartItems(updated_items);
         handleCart(updated_items_count); 
-        setHomeIndex("");
+        setPageIndex("");
         }
-    }, [homeIndex]);
+    }, [pageIndex]);
 
     useEffect(() => {
         let load_obj = {
@@ -46,7 +46,7 @@ const Home = () => {
         }
         axios(load_obj)
         .then(res => {
-            setHomeContent(res.data);
+            setPageContent(res.data);
         })
         .catch(err => {
             console.log(err);
@@ -55,7 +55,7 @@ const Home = () => {
     }, [user]);
         
     return (
-    <div className="home-body-wrapper">
+    <div className="page-body-wrapper">
     <div className="container" style={{maxWidth:"1200px"}}>
 
     <div id="amazingslider-wrapper-1" style={{display:"block", position:"relative", maxWidth:"1200px", margin:"0px auto 10px", maxHeight:"600px"}}>
@@ -68,12 +68,12 @@ const Home = () => {
     </div>
     </div>
 
-    {homeContent ?
+    {pageContent ?
     <>
     <h1 className="body-header">Latest <span>in Stock</span></h1>
     <div className="item-wrapper">
-    {Object.values(homeContent).map((value, index) => { 
-       return <ItemGrids item={value} user={user} index={index} key={index} setHomeIndex={setHomeIndex} />
+    {Object.values(pageContent).map((value, index) => { 
+       return <ItemGrids item={value} user={user} index={index} key={index} setPageIndex={setPageIndex} />
     })}
     </div>
     </>

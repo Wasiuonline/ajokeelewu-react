@@ -12,6 +12,7 @@ const App = () => {
   const [cartItems, setCartItems] = useState(getSession("cart_items") || "");
   const [cart, setCart] = useState(getSession("cart") || "");
   const [loginNotice, setLoginNotice] = useState("");
+  const [param, setParam] = useState("");
 
   const handleUserData = (data) => {
     setLocal("login", data);
@@ -52,7 +53,7 @@ if(!categories){
     return(
         <Router>
           <DataContext.Provider value={{
-          user, handleUserData, cart, handleCart, cartItems, handleCartItems, loginNotice, handleLoginNotice, handleLogout, ErrorMsg, categories, SuccessMsg, ErrMsg, setLocal, getLocal, deleteLocal, setSession, getSession, deleteSession
+          user, handleUserData, cart, handleCart, cartItems, handleCartItems, loginNotice, handleLoginNotice, handleLogout, ErrorMsg, categories, SuccessMsg, ErrMsg, setLocal, getLocal, deleteLocal, setSession, getSession, deleteSession, param, setParam
           }}>
 
             <Routes>

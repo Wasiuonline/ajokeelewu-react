@@ -1,8 +1,9 @@
 import axios from 'axios';
 import Token from '../components/Token';
+import BaseURL from '../components/BaseURL';
 
 export default axios.create({
-    baseURL: "http://api.ajokeelewu.loc",
+    baseURL: BaseURL,
     headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
