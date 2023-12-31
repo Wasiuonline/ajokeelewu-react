@@ -65,6 +65,29 @@ svg{
     overflow: visible;
     vertical-align: -0.125em;
 }*/
+
+#amazingslider-wrapper-1 .amazingslider-arrow-left-1, #amazingslider-wrapper-1 .amazingslider-arrow-right-1{
+display:inline-block!important;
+}
+.img-div{
+height: 200px;
+width:100%;
+display:inline-block;
+position:relative;
+}
+.img-div .status{
+  position: absolute;
+  z-index: 5;
+  top: 5px;
+  right: 5px;
+  padding: 5px;
+  font-size: 12px;
+  background: rgba(255,255,255,0.5);
+}
+.item-old-price s{
+font-size: 14px;
+text-decoration: line-through;
+}
 </style>
 </head>
 <body>
@@ -76,5 +99,8 @@ svg{
 <script src="js/jquery-ui.js"></script>
 <script src="js/select2.min.js"></script>
   <script type="text/javascript" src="js/general.js"></script>
+  <script src="sliderengine/amazingslider.js"></script>
+  <link rel="stylesheet" type="text/css" href="sliderengine/amazingslider.css" />
+  <script src="sliderengine/initslider.js"></script>
 </body>
 </html>

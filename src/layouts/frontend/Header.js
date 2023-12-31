@@ -42,8 +42,8 @@ const Header = () => {
         <li><NavLink activeclassname="true" to="/login" className=""><FaSignInAlt /> Login</NavLink></li>
         </>
         }
-        <li><Link className="cart-counter-display"><FaShoppingCart /> Cart (<span className="cart-items-counter">{cart}</span>)
-        <div className="cart-items-display">{cartItems}</div>
+        <li><Link className="cart-counter-display"><FaShoppingCart /> Cart <span className="cart-items-counter">{cart ? `(${cart})` : `(0)`}</span>
+        <div className="cart-items-display"></div>
         </Link></li>
         </ul>
         

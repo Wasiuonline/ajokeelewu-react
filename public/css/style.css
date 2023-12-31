@@ -656,6 +656,7 @@ div.page-nos{
 display:block;
 clear:both;
 padding:5px;
+padding-top:15px;
 overflow:hidden;
 }
 div.page-nos a{

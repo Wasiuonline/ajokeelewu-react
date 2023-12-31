@@ -1,20 +1,15 @@
 import React, {useContext, useState} from 'react';
 import DataContext from '../../context/DataContext';
-import {Link, NavLink, useNavigate} from "react-router-dom";
+import {Link, NavLink} from "react-router-dom";
 import { FaUser, FaSignInAlt, FaSpinner, FaLaptop, FaSignOutAlt, FaShoppingCart, FaSearch } from "react-icons/fa";
 import { MdSpaceDashboard } from "react-icons/md";
 
 const Header = () => {
     const {user, cart, cartItems} = useContext(DataContext);
     const [search, setSearch] = useState("");
-    const navigate = useNavigate();
     const handleSearch = (e) => {
     e.preventDefault();
     setSearch("");
-    }
-
-    if(user){
-    navigate("/");
     }
     
     return (

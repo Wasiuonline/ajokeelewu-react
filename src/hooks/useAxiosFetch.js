@@ -60,7 +60,10 @@ const useAxiosFetch = (dataUrl, method="get") => {
     return { data, fetchError, isLoading }
 }
 
-/*const [mon, setMon] = useState(0);
+/*
+//import useAxiosFetch from '../hooks/useAxiosFetch';
+//import api from '../api/post';
+const [mon, setMon] = useState(0);
     const { data, fetchError, isLoading } = useAxiosFetch("", "get");
     console.log(data);
     console.log(fetchError);

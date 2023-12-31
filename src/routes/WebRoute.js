@@ -1,23 +1,27 @@
-import React from "react";
-import {Home, About, Contact, Login, Register, Logout, ForgotPassword, Missing} from '../layouts/frontend/FrontEndLoader';
+import React, {useContext} from "react";
+import {Home, About, Contact, Cat, Login, Register, Logout, ForgotPassword, Missing} from '../layouts/frontend/FrontEndLoader';
 import FrontEndLayout from "../layouts/frontend/FrontEndLayout";
 import {Dashboard} from '../layouts/customers/CustomersLoader';
 import CustomersLayout from "../layouts/customers/CustomersLayout";
-
+import HomeRedirect from "../components/HomeRedirect";
+import DataContext from '../context/DataContext';
 
 import {Route, Routes} from "react-router-dom";
 
 const WebRoute = () => {
+    const {user} = useContext(DataContext);
+
     return(
         
         <Routes>
-        <Route element={<CustomersLayout />}>
+        <Route element={user?<CustomersLayout />:<HomeRedirect />}>
         <Route exact path = "/customers" element = {<Dashboard />} />
         </Route>
         <Route element={<FrontEndLayout />}>
         <Route exact index element = {<Home />} />
         <Route exact path = "/about" element = {<About />} />
         <Route exact path = "/contact" element = {<Contact />} />
+        <Route path = "/cat/:catSlug" element = {<Cat />} />
         <Route exact path = "/login" element = {<Login />} />
         <Route exact path = "/register" element = {<Register />} />
         <Route exact path = "/logout" element = {<Logout />} />

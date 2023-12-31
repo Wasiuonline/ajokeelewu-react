@@ -19,7 +19,7 @@ const Nav = () => {
         {categories?
         Object.values(categories).map(value => { 
         
-         return (<li><Link className="main-link">{value.name} <FaAngleDown /></Link>
+         return (<li key={value.id}><Link className="main-link">{value.name} <FaAngleDown /></Link>
                 <ul className="sub-link login-form border-radius-bottom">
                 
                 {Object.values(value.subcategories).map(val => { 
