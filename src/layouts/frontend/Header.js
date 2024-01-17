@@ -1,19 +1,33 @@
 import React, {useContext, useState} from 'react';
 import DataContext from '../../context/DataContext';
-import {Link, NavLink} from "react-router-dom";
+import {Link, NavLink, useNavigate} from "react-router-dom";
 import { FaUser, FaSignInAlt, FaSpinner, FaLaptop, FaSignOutAlt, FaShoppingCart, FaSearch } from "react-icons/fa";
 import { MdSpaceDashboard } from "react-icons/md";
+import { Toaster } from 'react-hot-toast';
+import swal from 'sweetalert';
 
 const Header = () => {
     const {user, cart, cartItems} = useContext(DataContext);
     const [search, setSearch] = useState("");
+    const navigate = useNavigate();
     const handleSearch = (e) => {
     e.preventDefault();
     setSearch("");
     }
+    const showSwal = () => {
+        swal({
+            title: "Logout Confirmation",
+            text: "Are you sure you want to logout?",
+            icon: "info",
+            buttons: ["No", "Yes"]
+          }).then((value) => {
+            if(value === true){navigate("/logout")}
+          });
+    }
     return (
         <div className="header-wrapper header-wrapper1" id="bodyDiv">
         <div className="header header1">
+        <div><Toaster/></div>
         <form className="general-form col-sm-6" id="form-div" style={{overflow:"visible"}}>
         <div className="form-group has-search" style={{marginBottom: "0px"}}>
         <FaSearch className="form-control-feedback" />
@@ -34,7 +48,7 @@ const Header = () => {
         <li><Link to="/admin"><MdSpaceDashboard /> Admin</Link></li>
         :""
         }
-        <li><Link to="/logout"><FaSignOutAlt /> Logout</Link></li>
+        <li><Link onClick={()=>showSwal()}><FaSignOutAlt /> Logout</Link></li>
         </>
         :
         <>

@@ -2,7 +2,6 @@ import React, {useContext} from 'react';
 import {Link, NavLink} from "react-router-dom";
 import { FaAngleDown } from "react-icons/fa";
 import DataContext from '../../context/DataContext';
-import BaseURL from '../../components/BaseURL';
 
 const Nav = () => {
 

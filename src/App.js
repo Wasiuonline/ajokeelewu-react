@@ -5,6 +5,7 @@ import SuccessMsg, {ErrMsg, ErrorMsg} from './components/GenMsg';
 import {setLocal, getLocal, deleteLocal, setSession, getSession, deleteSession} from './components/GenStorage';
 import axios from './api/axios';
 import WebRoute from "./routes/WebRoute";
+import SuccessToast, {ErrorToast} from './components/Toast';
 
 const App = () => {
   const [categories, setCategories] = useState(getSession("categories"));
@@ -53,7 +54,7 @@ if(!categories){
     return(
         <Router>
           <DataContext.Provider value={{
-          user, handleUserData, cart, handleCart, cartItems, handleCartItems, loginNotice, handleLoginNotice, handleLogout, ErrorMsg, categories, SuccessMsg, ErrMsg, setLocal, getLocal, deleteLocal, setSession, getSession, deleteSession, param, setParam
+          user, handleUserData, cart, handleCart, cartItems, handleCartItems, loginNotice, handleLoginNotice, handleLogout, ErrorMsg, categories, SuccessMsg, ErrMsg, setLocal, getLocal, deleteLocal, setSession, getSession, deleteSession, param, setParam, SuccessToast, ErrorToast
           }}>
 
             <Routes>
@@ -61,7 +62,7 @@ if(!categories){
             </Routes>
 
           </DataContext.Provider>
-       </Router>
+       </Router>  
     );
 };
 

@@ -3,7 +3,9 @@ import {Link} from "react-router-dom";
 import { FaShoppingCart, FaHeart, FaRegHeart, FaEye } from "react-icons/fa";
 import {decode} from 'html-entities';
 
-const ItemGrids = ({item, user, index, setPageIndex}) => {
+
+const ItemGrids = ({item, user, index, setPageIndex, showSwal}) => {
+
     if(item.item_id &&  Object.keys(item).length > 0){
     return (
     <div className="item-inner white-bg shadow border-radius">
@@ -25,7 +27,7 @@ const ItemGrids = ({item, user, index, setPageIndex}) => {
     </div>
     :
     <div className="tooltip">
-    <Link><FaRegHeart /></Link>
+    <Link onClick={showSwal}><FaRegHeart /></Link>
     <span className="tooltiptext">Save item</span>
     </div>
     }

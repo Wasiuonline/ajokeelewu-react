@@ -172,17 +172,6 @@ sweetAlert("Notice", "An error occured!", "error");
 
 });
 
-//////////////////////////////////////
-
-$("#owl-content").owlCarousel({
-autoPlay: 3000,
-items : 1,
-itemsDesktop : [1199,1],
-itemsDesktopSmall : [992,2],
-itemsTablet : [540,1]
-});
-////////////////////////////////////
-
 //Zoom effect
 $('.item-picture img').hover(function() {
 	$(this).addClass('transition');

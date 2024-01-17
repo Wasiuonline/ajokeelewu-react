@@ -1,39 +1,38 @@
 import React, {useContext, useState, useEffect} from 'react';
-import {useParams} from "react-router-dom";
+import {useParams, useNavigate} from "react-router-dom";
 import DataContext from '../context/DataContext';
 import axios from '../api/axios';
 import ItemGrids from '../components/ItemGrids';
 import { FaSpinner } from "react-icons/fa";
 import { AppName } from '../components/General';
 import Pagination from '../components/Pagination';
+import AddToCart from '../components/AddToCart';
+import swal from 'sweetalert';
 
 const Cat = () => {
     const {catSlug} = useParams();
     const [pageContent, setPageContent] = useState("");
     const [pageIndex, setPageIndex] = useState("");
     const [catTitle, setCatTitle] = useState("");
-    const {user, cartItems, handleCart, handleCartItems, param, setParam} = useContext(DataContext);
+    const {user, cartItems, handleCart, handleCartItems, param, setParam, SuccessToast} = useContext(DataContext);
+    const navigate = useNavigate();
+
     const title = catTitle + " | " + AppName;
     document.title = title;
 
-    useEffect(() => {
-        if(pageContent !== "" && pageIndex !== ""){
-        const key = pageIndex;
-        let val = pageContent[key];
-        let qty = (cartItems !== "" && val.item_id in cartItems)?cartItems[val.item_id].selected_qty:0;
-        val = {...val, selected_qty: qty + 1};
-        val = (val.sizes && Object.keys(val.sizes).length > 0)?{...val, selected_size:0}:val; 
-
-        const item_id = val.item_id;
-        const updated_items = (cartItems !== "")?{...cartItems, [item_id]:val}: {[item_id]:val};
-        let updated_items_count = 0;
-        Object.values(updated_items).map(value => { 
-        updated_items_count += value.selected_qty;
+    const showSwal = () => {
+        swal({
+            title: "Notice",
+            text: "Please log in to save this item",
+            icon: "info",
+            buttons: ["Not now", "Login"]
+        }).then((value) => {
+          if(value === true){navigate("/login")}
         });
-        handleCartItems(updated_items);
-        handleCart(updated_items_count); 
-        setPageIndex("");
-        }
+    }
+
+    useEffect(() => {
+        AddToCart({pageContent:pageContent.data, pageIndex:pageIndex, cartItems:cartItems, handleCartItems:handleCartItems, handleCart:handleCart, setPageIndex:setPageIndex, SuccessToast:SuccessToast, Quantity:1 });
     }, [pageIndex]);
 
     useEffect(() => {
@@ -60,10 +59,17 @@ const Cat = () => {
         });
 
     }}, [param]);
-        
+     
     return (
     <div className="home-body-wrapper">
     <div className="container" style={{maxWidth:"1200px"}}>
+
+    {/*createPortal(
+          <Link to="/about" onClick={() => Swal.close()}>
+            Go to About
+          </Link>,
+          Swal.getHtmlContainer()
+    )*/}
 
     {pageContent ?
     <>
@@ -71,8 +77,8 @@ const Cat = () => {
 
     {Object.keys(pageContent.data).length > 1 ?
     <div className="item-wrapper">
-    {Object.values(pageContent.data).map((value, index) => { 
-       return <ItemGrids item={value} user={user} index={index} key={index} setPageIndex={setPageIndex} />
+    {Object.keys(pageContent.data).map((index) => { 
+       return <ItemGrids item={pageContent.data[index]} user={user} index={index} key={index} setPageIndex={setPageIndex} showSwal={showSwal} />
     })}
     </div>
     : <div className='not-success' style={{marginTop:"50px", marginLeft:"auto", marginRight:"auto", maxWidth:"400px"}}>No product available for <b>{`${catTitle}`}</b> now. Please check back later.</div>

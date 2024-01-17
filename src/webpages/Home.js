@@ -1,35 +1,36 @@
 import React, {useContext, useState, useEffect} from 'react';
+import {useNavigate} from "react-router-dom";
 import DataContext from '../context/DataContext';
 import axios from '../api/axios';
 import ItemGrids from '../components/ItemGrids';
 import { FaSpinner } from "react-icons/fa";
 import { AppName } from '../components/General';
+import { loadScript, loadStyle } from '../components/LoadFile';
+import AddToCart from '../components/AddToCart';
+import swal from 'sweetalert';
 
 const Home = () => {
     const [pageContent, setPageContent] = useState("");
     const [pageIndex, setPageIndex] = useState("");
-    const {user, cartItems, handleCart, handleCartItems} = useContext(DataContext);
+    const {user, cartItems, handleCart, handleCartItems, SuccessToast} = useContext(DataContext);
+    const navigate = useNavigate();
+
     const title = "Home | " + AppName;
     document.title = title;
 
-    useEffect(() => {
-        if(pageContent !== "" && pageIndex !== ""){
-        const key = pageIndex;
-        let val = pageContent[key];
-        let qty = (cartItems !== "" && val.item_id in cartItems)?cartItems[val.item_id].selected_qty:0;
-        val = {...val, selected_qty: qty + 1};
-        val = (val.sizes && Object.keys(val.sizes).length > 0)?{...val, selected_size:0}:val; 
-
-        const item_id = val.item_id;
-        const updated_items = (cartItems !== "")?{...cartItems, [item_id]:val}: {[item_id]:val};
-        let updated_items_count = 0;
-        Object.values(updated_items).map(value => { 
-        updated_items_count += value.selected_qty;
+    const showSwal = () => {
+        swal({
+            title: "Notice",
+            text: "Please log in to save this item",
+            icon: "info",
+            buttons: ["Not now", "Login"]
+        }).then((value) => {
+          if(value === true){navigate("/login")}
         });
-        handleCartItems(updated_items);
-        handleCart(updated_items_count); 
-        setPageIndex("");
-        }
+    }
+
+    useEffect(() => {
+        AddToCart({pageContent:pageContent, pageIndex:pageIndex, cartItems:cartItems, handleCartItems:handleCartItems, handleCart:handleCart, setPageIndex:setPageIndex, SuccessToast:SuccessToast, Quantity:1 });
     }, [pageIndex]);
 
     useEffect(() => {
@@ -53,6 +54,10 @@ const Home = () => {
         });
 
     }, [user]);
+
+    loadScript("sliderengine/amazingslider.js");
+    loadStyle("sliderengine/amazingslider.css");
+    loadScript("sliderengine/initslider.js");
         
     return (
     <div className="page-body-wrapper">
@@ -72,8 +77,8 @@ const Home = () => {
     <>
     <h1 className="body-header">Latest <span>in Stock</span></h1>
     <div className="item-wrapper">
-    {Object.values(pageContent).map((value, index) => { 
-       return <ItemGrids item={value} user={user} index={index} key={index} setPageIndex={setPageIndex} />
+    {Object.keys(pageContent).map((index) => { 
+       return <ItemGrids item={pageContent[index]} user={user} index={index} key={index} setPageIndex={setPageIndex} showSwal={showSwal} />
     })}
     </div>
     </>
