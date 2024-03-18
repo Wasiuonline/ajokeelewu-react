@@ -4,22 +4,24 @@ import { FaShoppingCart, FaHeart, FaRegHeart, FaEye } from "react-icons/fa";
 import {decode} from 'html-entities';
 
 
-const ItemGrids = ({item, user, index, setPageIndex, showSwal}) => {
+const ItemGrids = ({item, user, index, setPageIndex, showSwal, pn}) => {
 
-    if(item.item_id &&  Object.keys(item).length > 0){
+    if(item.item_id &&  Object.keys(item).length > 0 && index !== "details"){
     return (
     <div className="item-inner white-bg shadow border-radius">
 
     <div className="item-picture">
-    <Link to={`details/${item.item_slug}/pn/1`}><span className="img-div border-radius" style={{backgroundImage:`url(${item.file_name})`, WebkitBackgroundSize:"cover", MozBackgroundSize:"cover", OBackgroundSize:"cover", backgroundSize:"cover", backgroundRepeat: "no-repeat", backgroundPosition: "top center"}}>{item.status.id===2 && <span className="status">{item.status.item_status}</span>}</span></Link>
+    <Link to={`/details/${item.item_slug}/${pn}`}><span className="img-div border-radius" style={{backgroundImage:`url(${item.file_name})`, WebkitBackgroundSize:"cover", MozBackgroundSize:"cover", OBackgroundSize:"cover", backgroundSize:"cover", backgroundRepeat: "no-repeat", backgroundPosition: "top center"}}>{item.status.id===2 && <span className="status">{item.status.item_status}</span>}</span></Link>
     </div>
 
-    <div className="item-title"><Link to={`details/${item.item_slug}/pn/1`}>{decode(item.item_name)}</Link>
+    <div className="item-title"><Link to={`/details/${item.item_slug}/${pn}`}>{decode(item.item_name)}</Link>
     <div className="item-price">{decode(item.item_price)}</div>
     <div className="item-old-price"><s>{decode(item.item_old_price)}</s></div>
     <div className="item-options">
 
+    {item.status.id===1 &&
     <div className="tooltip add-to-cart" onClick={()=>setPageIndex(index)}><Link><FaShoppingCart /></Link><span className="tooltiptext">Add to cart</span></div>
+    }
 
     {user?
     <div className="tooltip gen-save" name={item.item_id} id={`save${item.item_id}`}>
@@ -32,7 +34,7 @@ const ItemGrids = ({item, user, index, setPageIndex, showSwal}) => {
     </div>
     }
 
-    <div className="tooltip"><Link to={`details/${item.item_slug}/pn/1`}><FaEye /></Link><span className="tooltiptext">View details</span></div>
+    <div className="tooltip"><Link to={`/details/${item.item_slug}/${pn}`}><FaEye /></Link><span className="tooltiptext">View details</span></div>
 
     </div>
     </div>

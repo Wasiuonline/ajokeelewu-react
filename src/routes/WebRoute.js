@@ -1,5 +1,5 @@
 import React, {useContext} from "react";
-import {Home, About, Contact, Cat, Login, Register, Logout, ForgotPassword, Missing} from '../layouts/frontend/FrontEndLoader';
+import {Home, About, Contact, Cat, Details, Cart, Login, Register, Logout, ForgotPassword, Missing} from '../layouts/frontend/FrontEndLoader';
 import FrontEndLayout from "../layouts/frontend/FrontEndLayout";
 import {Dashboard} from '../layouts/customers/CustomersLoader';
 import CustomersLayout from "../layouts/customers/CustomersLayout";
@@ -22,6 +22,9 @@ const WebRoute = () => {
         <Route exact path = "/about" element = {<About />} />
         <Route exact path = "/contact" element = {<Contact />} />
         <Route path = "/cat/:catSlug" element = {<Cat />} />
+        <Route path = "/cat/:catSlug/:pageNo" element = {<Cat />} />
+        <Route path = "/details/:itemSlug/:pageNo" element = {<Details />} />
+        <Route path = "/cart" element = {<Cart />} />
         <Route exact path = "/login" element = {<Login />} />
         <Route exact path = "/register" element = {<Register />} />
         <Route exact path = "/logout" element = {<Logout />} />

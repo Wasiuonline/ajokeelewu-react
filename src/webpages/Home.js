@@ -5,8 +5,8 @@ import axios from '../api/axios';
 import ItemGrids from '../components/ItemGrids';
 import { FaSpinner } from "react-icons/fa";
 import { AppName } from '../components/General';
-import { loadScript, loadStyle } from '../components/LoadFile';
 import AddToCart from '../components/AddToCart';
+import HomeSlides from '../components/HomeSlides';
 import swal from 'sweetalert';
 
 const Home = () => {
@@ -30,7 +30,7 @@ const Home = () => {
     }
 
     useEffect(() => {
-        AddToCart({pageContent:pageContent, pageIndex:pageIndex, cartItems:cartItems, handleCartItems:handleCartItems, handleCart:handleCart, setPageIndex:setPageIndex, SuccessToast:SuccessToast, Quantity:1 });
+        AddToCart({pageContent:pageContent, pageIndex:pageIndex, cartItems:cartItems, handleCartItems:handleCartItems, handleCart:handleCart, setPageIndex:setPageIndex, SuccessToast:SuccessToast, Quantity:1, Size:0 });
     }, [pageIndex]);
 
     useEffect(() => {
@@ -54,31 +54,19 @@ const Home = () => {
         });
 
     }, [user]);
-
-    loadScript("sliderengine/amazingslider.js");
-    loadStyle("sliderengine/amazingslider.css");
-    loadScript("sliderengine/initslider.js");
         
     return (
     <div className="page-body-wrapper">
     <div className="container" style={{maxWidth:"1200px"}}>
 
-    <div id="amazingslider-wrapper-1" style={{display:"block", position:"relative", maxWidth:"1200px", margin:"0px auto 10px", maxHeight:"600px"}}>
-    <div id="amazingslider-1" style={{display:"block", position:"relative", margin:"0 auto"}}>
-    <ul className="amazingslider-slides" style={{listStyle:"none"}}> 
-    <li><img src="images/slides/slide-1.jpg" alt="Domestic Cleaning" /></li>
-    <li><img src="images/slides/slide-2.jpg" alt="Office Cleaning" /></li>
-    <li><img src="images/slides/slide-3.jpg" alt="Window Cleaning" /></li>
-    </ul>
-    </div>
-    </div>
+    <HomeSlides />
 
     {pageContent ?
     <>
     <h1 className="body-header">Latest <span>in Stock</span></h1>
     <div className="item-wrapper">
     {Object.keys(pageContent).map((index) => { 
-       return <ItemGrids item={pageContent[index]} user={user} index={index} key={index} setPageIndex={setPageIndex} showSwal={showSwal} />
+       return <ItemGrids item={pageContent[index]} user={user} index={index} key={index} setPageIndex={setPageIndex} showSwal={showSwal} pn={1} />
     })}
     </div>
     </>

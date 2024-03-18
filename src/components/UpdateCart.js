@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link} from "react-router-dom";
 
-const AddToCart = ({ pageContent, pageIndex, cartItems, handleCartItems, handleCart, setPageIndex, SuccessToast, Quantity, Size }) => {
+const UpdateCart = ({ pageContent, pageIndex, cartItems, handleCartItems, handleCart, setPageIndex, SuccessToast, Quantity, Size }) => {
     if(pageContent !== "" && pageIndex !== "" && Quantity > 0){
         const key = pageIndex;
         let val = pageContent[key];
@@ -24,4 +24,4 @@ const AddToCart = ({ pageContent, pageIndex, cartItems, handleCartItems, handleC
     }
 }
 
-export default AddToCart
+export default UpdateCart

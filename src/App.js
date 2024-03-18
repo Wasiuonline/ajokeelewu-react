@@ -52,6 +52,7 @@ if(!categories){
 }, []);
 
     return(
+      <>
         <Router>
           <DataContext.Provider value={{
           user, handleUserData, cart, handleCart, cartItems, handleCartItems, loginNotice, handleLoginNotice, handleLogout, ErrorMsg, categories, SuccessMsg, ErrMsg, setLocal, getLocal, deleteLocal, setSession, getSession, deleteSession, param, setParam, SuccessToast, ErrorToast
@@ -63,6 +64,7 @@ if(!categories){
 
           </DataContext.Provider>
        </Router>  
+       </>
     );
 };
 

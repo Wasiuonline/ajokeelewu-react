@@ -40,8 +40,6 @@ const Footer = () => {
     return (
         <>
             
-<script src="js/sweetalert.min.js"></script>
-
 <div className="general-fade"></div>
 
 <div className="general-result"></div>

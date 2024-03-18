@@ -14,7 +14,7 @@ const Nav = () => {
         <NavLink activeclassname="true"className=""  to="/" style={{float:"left"}}><img src="images/ajoke-elewu-logo.png" style={{maxHeight:"50px"}} alt="Logo"/></NavLink>
         <button className="collapse"><span></span><span></span><span></span></button>
         <ul className="main-list">
-        <li><NavLink activeclassname="true" className="main-link" to="cat/all/"  onClick={() => setParam(all_url)}>All in Stock</NavLink></li>
+        <li><NavLink activeclassname="true" className="main-link" to="cat/all"  onClick={() => setParam(all_url)}>All in Stock</NavLink></li>
 
         {categories?
         Object.values(categories).map(value => { 

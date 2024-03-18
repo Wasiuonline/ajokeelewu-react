@@ -10,10 +10,12 @@ import AddToCart from '../components/AddToCart';
 import swal from 'sweetalert';
 
 const Cat = () => {
-    const {catSlug} = useParams();
+    const {catSlug, pageNo} = useParams();
     const [pageContent, setPageContent] = useState("");
     const [pageIndex, setPageIndex] = useState("");
     const [catTitle, setCatTitle] = useState("");
+    const [pn, setPn] = useState(1);
+    const [pageUrl, setPageUrl] = useState("");
     const {user, cartItems, handleCart, handleCartItems, param, setParam, SuccessToast} = useContext(DataContext);
     const navigate = useNavigate();
 
@@ -32,21 +34,28 @@ const Cat = () => {
     }
 
     useEffect(() => {
-        AddToCart({pageContent:pageContent.data, pageIndex:pageIndex, cartItems:cartItems, handleCartItems:handleCartItems, handleCart:handleCart, setPageIndex:setPageIndex, SuccessToast:SuccessToast, Quantity:1 });
+        AddToCart({pageContent:pageContent.data, pageIndex:pageIndex, cartItems:cartItems, handleCartItems:handleCartItems, handleCart:handleCart, setPageIndex:setPageIndex, SuccessToast:SuccessToast, Quantity:1, Size:0 });
     }, [pageIndex]);
 
     useEffect(() => {
         if(param!==1){
+        setPageContent(""); 
+        let detPn = param;
+        detPn = detPn && detPn.indexOf("=") > 0 ? detPn.split("=")[1] : pageNo;
+        detPn = detPn ? detPn : 1;
+        setPn(detPn);
+        setPageUrl(`/cat/${catSlug}/`);
+
         let load_obj = {
             method: 'get',
-            url: param?param:`/api/cat/${catSlug}`
+            url: param?param:`/api/cat/${catSlug}?page=${detPn}`
             }
         if(user){
             load_obj["headers"] = { 
                 "Authorization": `Bearer ${user.token}`,
                 "token": user.token
             };
-            load_obj["url"] = param?param:`/api/users-cat/${catSlug}`;
+            load_obj["url"] = param?param:`/api/users-cat/${catSlug}?page=${detPn}`;
         }
         axios(load_obj)
         .then(res => {
@@ -78,14 +87,14 @@ const Cat = () => {
     {Object.keys(pageContent.data).length > 1 ?
     <div className="item-wrapper">
     {Object.keys(pageContent.data).map((index) => { 
-       return <ItemGrids item={pageContent.data[index]} user={user} index={index} key={index} setPageIndex={setPageIndex} showSwal={showSwal} />
+       return <ItemGrids item={pageContent.data[index]} user={user} index={index} key={index} setPageIndex={setPageIndex} showSwal={showSwal} pn={pn} />
     })}
     </div>
     : <div className='not-success' style={{marginTop:"50px", marginLeft:"auto", marginRight:"auto", maxWidth:"400px"}}>No product available for <b>{`${catTitle}`}</b> now. Please check back later.</div>
     }
 
     {pageContent.last_page > 1 ?
-    <Pagination links={pageContent.links} setParam={setParam} param={param} />
+    <Pagination links={pageContent.links} setParam={setParam} param={param} pageUrl={pageUrl} />
     : ""}
     </>
     : <p className="align-center" style={{paddingTop:"20px"}}><FaSpinner className="fa-spin" style={{fontSize:"25px"}} /></p> }

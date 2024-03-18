@@ -54,13 +54,6 @@ $(this).children("ul").hide();
 });
 
 ////////////////////////////////////////////////////
-$(".cart-counter-display").hover(function(){
-$(".cart-items-display").show();
-},function(){
-$(".cart-items-display").hide();
-});
-
-////////////////////////////////////////////////////
 $(".header-wrapper ul.main-list li").click(function(){
 if($("button.collapse").css("display") == "block"){	
 $(".header-wrapper ul.main-list li").not($(this)).children("a.current2").removeClass("current2");
@@ -98,80 +91,6 @@ $(".search-form-guide").slideToggle();
         });
     });
 
-//////////////////////////////////////////////////
-
-$(".gen-save").click(function(){
-var this_name = $(this).attr("name");
-var this_id = $(this).attr("id");
-var this_lang = $(this).attr("lang");
-var this_content = $(this).html();
-
-$(this).html("<a><i class=\"fa fa-spinner fa-spin fa-3x fa-fw gen-spin\" aria-hidden=\"true\"></i></a><span class=\"tooltiptext\">Processing...</span>");
-
-$.post(this_lang, {save_item : this_name}, function(data){
-if(data == 1){	
-$("#"+this_id).html("<a><i class=\"fa fa-heart gen-heart\"></i></a><span class=\"tooltiptext\">Unsave item</span>");
-}else{
-$("#"+this_id).html("<a><i class=\"fa fa-heart-o gen-heart\"></i></a><span class=\"tooltiptext\">Save item</span>");
-}
-})
-.error(function() { 
-sweetAlert("Notice", "An error occured!", "error");
-$("#"+this_id).html(this_content);
-});
-});
-///////////////////////////////////////
-
-$(".add-to-cart").click(function(){
-var this_name = $(this).attr("name");
-var this_lang = $(this).attr("lang");
-var this_id = $(this).attr("id");
-var this_dir = $(this).attr("dir");
-var that_val = (document.getElementById(this_name).value)?document.getElementById(this_name).value:$("#" + this_name).attr("value");
-that_val = parseFloat(that_val);
-var this_content = $(this).html();
-var cart_item_counter = $(".cart-items-counter").html();
-cart_item_counter = cart_item_counter.replace(/[^0-9.]/gi, "");
-cart_item_counter = parseFloat(cart_item_counter);
-cart_item_counter += that_val;
-cart_item_counter = comma_separator(cart_item_counter);
-
-if(this_name == this_id){
-$(this).html("<a><i class=\"fa fa-spinner fa-spin fa-3x fa-fw gen-spin\" aria-hidden=\"true\"></i></a><span class=\"tooltiptext\">Processing...</span>");
-}else{
-$(this).html("<i class=\"fa fa-spinner fa-spin fa-3x fa-fw gen-spin\" aria-hidden=\"true\"></i> Processing...");
-}
-
-$.post(this_lang, {add_to_cart : this_dir, add_to_cart_val : that_val}, function(data){
-
-$(".cart-items-counter").html(cart_item_counter);
-
-$(".cart-items-display").html(data).show("fade");
-
-$("#"+this_id).html(this_content);
-
-$("html, body").animate({scrollTop:0}, "slow");
-
-})
-.error(function() { 
-sweetAlert("Notice", "An error occured!", "error");
-$("#"+this_id).html(this_content);
-});
-});
-///////////////////////////////////////
-
-$(".clear-cart").click(function(){
-
-$.post("privates/process-data/", {clear_cart : 1}, function(data){
-load_items_total();
-$(".cart-result").html("").html("<h3 class=\"align-center\">Your cart is empty</h3>");
-})
-.error(function() { 
-sweetAlert("Notice", "An error occured!", "error");
-});
-
-});
-
 //Zoom effect
 $('.item-picture img').hover(function() {
 	$(this).addClass('transition');
@@ -184,21 +103,6 @@ $('.item-picture img').hover(function() {
 
 function comma_separator(x) {
 return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-}
-
-function load_items_total() {
-$.post("privates/process-data/", {load_cart_total : 1}, function(data){
-$(".cart-items-counter").html(data);
-})
-.error(function() { 
-sweetAlert("Notice", "An error occured!", "error");
-});
-$.post("privates/process-data/", {load_cart_items : 1}, function(data){
-$(".cart-items-display").html(data);
-})
-.error(function() { 
-sweetAlert("Notice", "An error occured!", "error");
-});
 }
 
 function my_confirm(conf_title,conf_text,conf_link){
@@ -276,28 +180,4 @@ $(function(){
 });
 ///////////////////////////////////////
 		
-function member_search_load(val){
-val = val.trim();
-if(val != ""){
-document.getElementById("member-search-loader").style.display = "block";
-$.post("privates/process-data/", {member_name : val}, function(data){ 
-if(data != ""){
-document.getElementById("member-search-loader").style.display = "none";
-document.getElementById("member-search-result").style.display = "block";
-document.getElementById("member-search-result").innerHTML = data;
-}else{
-document.getElementById("member-search-loader").style.display = "none";
-document.getElementById("member-search-result").style.display = "none";
-}
-})
-.error(function() { 
-sweetAlert("Notice", "An error occured!", "error");
-document.getElementById("member-search-loader").style.display = "none";
-document.getElementById("member-search-result").style.display = "none";
- });	
-}else{
-document.getElementById("member-search-loader").style.display = "none";
-document.getElementById("member-search-result").style.display = "none";
-}
-}
 //-->

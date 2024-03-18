@@ -5,6 +5,7 @@ import { FaUser, FaSignInAlt, FaSpinner, FaLaptop, FaSignOutAlt, FaShoppingCart,
 import { MdSpaceDashboard } from "react-icons/md";
 import { Toaster } from 'react-hot-toast';
 import swal from 'sweetalert';
+import "../../css/style.css";
 
 const Header = () => {
     const {user, cart, cartItems} = useContext(DataContext);
@@ -24,6 +25,7 @@ const Header = () => {
             if(value === true){navigate("/logout")}
           });
     }
+
     return (
         <div className="header-wrapper header-wrapper1" id="bodyDiv">
         <div className="header header1">
@@ -56,7 +58,7 @@ const Header = () => {
         <li><NavLink activeclassname="true" to="/login" className=""><FaSignInAlt /> Login</NavLink></li>
         </>
         }
-        <li><Link className="cart-counter-display"><FaShoppingCart /> Cart <span className="cart-items-counter">{cart ? `(${cart})` : `(0)`}</span>
+        <li><Link to="/cart" className="cart-counter-display"><FaShoppingCart /> Cart <span className="cart-items-counter">{cart ? `(${cart})` : `(0)`}</span>
         <div className="cart-items-display"></div>
         </Link></li>
         </ul>
