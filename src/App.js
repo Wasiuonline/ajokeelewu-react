@@ -12,7 +12,9 @@ const App = () => {
   const [user, setUser] = useState(getLocal("login"));
   const [cartItems, setCartItems] = useState(getSession("cart_items") || "");
   const [cart, setCart] = useState(getSession("cart") || "");
+  const [checkout, setCheckout] = useState(getSession("checkout") || "");
   const [loginNotice, setLoginNotice] = useState("");
+  const [prevURL, setPrevURL] = useState("");
   const [param, setParam] = useState("");
 
   const handleUserData = (data) => {
@@ -28,6 +30,13 @@ const App = () => {
     setSession("cart_items", updated_items);
     setCartItems(getSession("cart_items"));
   }; 
+  const handleCheckout = (details) => {
+    setSession("checkout", details);
+    setCheckout(getSession("checkout"));
+  };
+  const handlePrevURL = (url) => {
+    setPrevURL(url);
+  };
   const handleLogout = (message) => {
     deleteLocal("login");
     handleLoginNotice(message);
@@ -55,7 +64,7 @@ if(!categories){
       <>
         <Router>
           <DataContext.Provider value={{
-          user, handleUserData, cart, handleCart, cartItems, handleCartItems, loginNotice, handleLoginNotice, handleLogout, ErrorMsg, categories, SuccessMsg, ErrMsg, setLocal, getLocal, deleteLocal, setSession, getSession, deleteSession, param, setParam, SuccessToast, ErrorToast
+          user, handleUserData, cart, handleCart, cartItems, handleCartItems, checkout, handleCheckout, loginNotice, handleLoginNotice, handleLogout, ErrorMsg, categories, SuccessMsg, ErrMsg, setLocal, getLocal, deleteLocal, setSession, getSession, deleteSession, param, setParam, SuccessToast, ErrorToast, prevURL, handlePrevURL
           }}>
 
             <Routes>

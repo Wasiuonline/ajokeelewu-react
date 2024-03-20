@@ -6,6 +6,7 @@ import DataContext from '../../context/DataContext';
 const Nav = () => {
 
     const {categories, setParam, user} = useContext(DataContext);
+    
     const all_url = user ? `/api/users-cat/all`: `/api/cat/all`;
     return (
         <div className="header-wrapper header-wrapper2">
@@ -17,7 +18,7 @@ const Nav = () => {
         <li><NavLink activeclassname="true" className="main-link" to="cat/all"  onClick={() => setParam(all_url)}>All in Stock</NavLink></li>
 
         {categories?
-        Object.values(categories).map(value => { 
+        Object.values(categories.data).map(value => { 
         
          return (<li key={value.id}><Link className="main-link">{value.name} <FaAngleDown /></Link>
                 <ul className="sub-link login-form border-radius-bottom">
