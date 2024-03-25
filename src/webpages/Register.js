@@ -1,6 +1,7 @@
 import React, {useState, useContext} from 'react';
 import {Link, useNavigate} from "react-router-dom";
 import axios from '../api/axios';
+import { AppName } from '../components/General';
 import DataContext from '../context/DataContext';
 import { FaLaptop, FaSpinner, FaUser, FaRegEnvelope, FaLock } from "react-icons/fa";
  
@@ -12,10 +13,13 @@ const Register = () => {
     const [password, setPassword] = useState("");
     const [password_confirmation, setPasswordConfirmation] = useState("");
     const navigate = useNavigate();
-    const {user, handleUserData, ErrorMsg} = useContext(DataContext);
+    const {user, handleUserData, ErrorMsg, prevURL} = useContext(DataContext);
     if(user){
-        navigate("/");
+        let prev_url = prevURL ? prevURL : "/";
+        navigate(prev_url);
     }
+    const title = "Register | " + AppName;
+    document.title = title;
 
     const handleRegister = async (e) => {
         e.preventDefault();
@@ -31,8 +35,7 @@ const Register = () => {
                 // listarChamados.innerHTML = res.data;
                 setRegisterRotate(false);
                 const data = {id: res.data.id, admin: res.data.admin, token: res.data.token}
-                localStorage.setItem("login", JSON.stringify(data));
-                handleUserData();
+                handleUserData(data);
                 setName("");
                 setEmail("");
                 setPassword("");

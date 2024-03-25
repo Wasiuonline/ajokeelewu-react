@@ -1,0 +1,26 @@
+.auto-scroll{
+padding:5px;
+}
+.cart-table{
+margin-bottom:10px;
+width:100%;
+}
+.cart-table th, .cart-table td{
+padding:10px;
+}
+.cart-table th{
+background:#ddd;
+color:#111;
+}
+.cart-table td{
+border:2px solid #ddd;
+}
+.cart-table tr *, .preview-table tr *{
+font-size:14px!important;
+}
+.preview-table td{
+padding: 5px;
+}
+form{
+padding: 5px;  
+}

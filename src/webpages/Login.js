@@ -1,6 +1,7 @@
 import React, {useState, useContext} from 'react';
 import {Link, useNavigate} from "react-router-dom";
 import axios from '../api/axios';
+import { AppName } from '../components/General';
 import DataContext from '../context/DataContext';
 import { FaSignInAlt, FaSpinner, FaRegEnvelope, FaLock } from "react-icons/fa";
  
@@ -10,10 +11,13 @@ const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
-    const {user, handleUserData, loginNotice, handleLoginNotice, ErrorMsg} = useContext(DataContext);
+    const {user, handleUserData, loginNotice, handleLoginNotice, ErrorMsg, prevURL} = useContext(DataContext);
     if(user){
-        navigate("/");
+        let prev_url = prevURL ? prevURL : "/";
+        navigate(prev_url);
     }
+    const title = "Login | " + AppName;
+    document.title = title;
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -26,19 +30,19 @@ const Login = () => {
             url: "/login",
             data: {email, password},
         })
-            .then(res => {
-                // listarChamados.innerHTML = res.data;
-                setLoginRotate(false);
-                const data = {id: res.data.id, admin: res.data.admin, token: res.data.token}
-                handleUserData(data);
-                setEmail("");
-                setPassword("");
-                setLoginError("");
-            })
-            .catch(err => {
-                setLoginRotate(false);
-                setLoginError(<ErrorMsg err={err} />);
-            })
+        .then(res => {
+            // listarChamados.innerHTML = res.data;
+            setLoginRotate(false);
+            const data = {id: res.data.id, admin: res.data.admin, token: res.data.token}
+            handleUserData(data);
+            setEmail("");
+            setPassword("");
+            setLoginError("");
+        })
+        .catch(err => {
+            setLoginRotate(false);
+            setLoginError(<ErrorMsg err={err} />);
+        })
     }
 
     return (
