@@ -1,5 +1,7 @@
 export const AppName = "Ajoke Elewu";
 export const AppCurr = "&#8358;";
+export const AppEmail = "info@ajokeelewu.com";
+export const AppPhone = "+2349021880292";
 export const FormatNumber = (amount, AppCurr="&#8358;") => {
     let thisVal = amount;
     if(isNaN(thisVal)){

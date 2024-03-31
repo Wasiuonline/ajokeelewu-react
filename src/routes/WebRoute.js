@@ -1,5 +1,5 @@
 import React, {useContext} from "react";
-import {Home, About, Contact, Cat, Details, Cart, Checkout, Preview, Login, Register, Logout, ForgotPassword, Missing} from '../layouts/frontend/FrontEndLoader';
+import {Home, About, Contact, Cat, Details, Cart, Checkout, Preview, PaystackResponse, BankDeposit, PaymentOptions, SizeGuide, Delivery, ExchangeAndReturns, Login, Register, Logout, ForgotPassword, Missing} from '../layouts/frontend/FrontEndLoader';
 import FrontEndLayout from "../layouts/frontend/FrontEndLayout";
 import {Dashboard} from '../layouts/customers/CustomersLoader';
 import CustomersLayout from "../layouts/customers/CustomersLayout";
@@ -26,7 +26,13 @@ const WebRoute = () => {
         <Route path = "/details/:itemSlug/:pageNo" element = {<Details />} />
         <Route path = "/cart" element = {<Cart />} />
         <Route path = "/checkout" element = {<Checkout />} />
-        <Route path = "/preview" element = {<Preview />} />
+        <Route path = "/preview" element = {<Preview />} /> 
+        <Route path = "/paystack-response" element = {<PaystackResponse />} />
+        <Route path = "/bank-deposit" element = {<BankDeposit />} />
+        <Route path = "/payment-options" element = {<PaymentOptions />} />
+        <Route path = "/size-guide" element = {<SizeGuide />} />
+        <Route path = "/delivery" element = {<Delivery />} />
+        <Route path = "/exchange-and-returns" element = {<ExchangeAndReturns />} />
         <Route exact path = "/login" element = {<Login />} />
         <Route exact path = "/register" element = {<Register />} />
         <Route exact path = "/logout" element = {<Logout />} />

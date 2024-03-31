@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import { AppCurr, FormatNumber, UsableNumber } from '../components/General';
+import { FormatNumber, UsableNumber } from '../components/General';
 import {decode} from 'html-entities';
 
 const PreviewPageItems = ({item}) => {

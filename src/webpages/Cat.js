@@ -16,7 +16,7 @@ const Cat = () => {
     const [catTitle, setCatTitle] = useState("");
     const [pn, setPn] = useState(1);
     const [pageUrl, setPageUrl] = useState("");
-    const {user, cartItems, handleCart, handleCartItems, param, setParam, SuccessToast} = useContext(DataContext);
+    const {user, cartItems, handleCart, handleCartItems, param, setParam, SuccessToast, ErrorToast} = useContext(DataContext);
     const navigate = useNavigate();
 
     const title = catTitle + " | " + AppName;
@@ -64,7 +64,7 @@ const Cat = () => {
             setParam(1);
         })
         .catch(err => {
-            console.log(err);
+            ErrorToast(err.response.data.message);
         });
 
     }}, [param]);

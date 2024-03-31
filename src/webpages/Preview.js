@@ -10,19 +10,77 @@ import "../css/preview.css";
 
 const Preview = () => {
     const [payment, setPayment] = useState("");
+    const [grandTotal, setGrandTotal] = useState(0);
     const [loginConfirmation, setLoginConfirmation] = useState(false);
     const [tempError, setTempError] = useState(false);
+    const [submitLoader, setSubmitLoader] = useState(false);
     const [pageIndex, setPageIndex] = useState(0);
 
     const navigate = useNavigate();
 
-    const {user, categories, cartItems, checkout, handleLogout, handlePrevURL} = useContext(DataContext);
+    const {user, categories, cartItems, checkout, handleLogout, handlePrevURL, handleTransaction, deleteSession, ErrorToast} = useContext(DataContext);
 
     const title = "Cart Preview | " + AppName;
     document.title = title;
 
     if(checkout==="" || cartItems==="" || categories===""){
         navigate("/checkout");
+    }
+
+    const handleSubmitPayment = async (e) => {
+        e.preventDefault();
+        if(payment){
+        setSubmitLoader(true);
+        let country = UsableNumber(checkout.country);
+        country = categories.countries[country].id;
+        let delivery = UsableNumber(checkout.delivery);
+        const delivery_option = categories.delivery[delivery].id;
+        delivery = categories.delivery[delivery].price;
+        const payment_opt = categories.payment_options[payment].id;
+        let cart = {};
+        Object.keys(cartItems).sort().map((index) => { 
+        const current_item = cartItems[index];
+        const item_price = UsableNumber(current_item.item_price);
+        cart = {...cart,  [index]: {item_id:current_item.item_id, size_id:current_item.sizes[current_item.selected_size].id, price:item_price, quantity:current_item.selected_qty}};
+        });
+
+        let load_obj = {
+            method: "post",
+            url: "/api/cart",
+            data: {user_id:user.id, name:checkout.name, phone:checkout.phone, email:checkout.email, country:country, address:checkout.address, additional_note:checkout.note, delivery:delivery, delivery_option:delivery_option, payment_option:payment_opt, total:grandTotal, cart: cart}
+            }
+        if(user){
+            load_obj["headers"] = { 
+                "Authorization": `Bearer ${user.token}`,
+                "token": user.token
+            };
+        }
+        axios(load_obj)
+        .then(res => {
+            setSubmitLoader(false);
+            handleTransaction(res.data);
+            deleteSession("cart_items");
+            deleteSession("cart");
+            deleteSession("checkout");
+            if(payment === "0"){
+            navigate("/bank-deposit");
+            }if(payment === "1"){
+            window.location.href = res.data.payment_link;               
+            }
+        })
+        .catch(err => {
+            if(err.response.data.message === "Unauthenticated." || err.response.data.message === "Unauthorized"){
+                handlePrevURL("/preview");
+                handleLogout("Please login to continue...");
+                navigate("/login");
+            }else{
+            ErrorToast(err.response.data.message);
+            setTempError(true);
+            setSubmitLoader(false);
+            }
+        });
+        
+        }
     }
 
     useEffect(() => {
@@ -82,13 +140,13 @@ const Preview = () => {
     return <PreviewPageItems item={cartItems[index]} key={index} />
     })}
 
-    {delivery_amount?
-    <>
-
     <tr>
     <td className="align-right" colSpan="2" style={{fontWeight:"900"}}>{checkout.delivery === "0" && "Sub-"}Total({decode(AppCurr)})</td>
     <th className="align-right">{FormatNumber(grand_total)}</th>
     </tr>
+
+    {delivery_amount?
+    <>
    
     <tr>
     <td className="align-right" colSpan="2">Delivery Charges({decode(AppCurr)})</td>
@@ -105,7 +163,7 @@ const Preview = () => {
     </tbody></table>
     </div>
 
-    <form method="post">  
+    <form method="post" onSubmit={handleSubmitPayment}>  
     <div className="col-md-8" style={{padding:"0px"}}>
     <table className="table preview-table">
     <tr>
@@ -129,14 +187,14 @@ const Preview = () => {
     <h3 style={{marginTop:"0px"}}>Select a Payment Option<span className="required">*</span></h3>
 
     {Object.keys(categories.payment_options).map((index) => { 
-    return <div className="form-group"><label style={{fontSize:"16px"}}><input type="radio" value={index} key={index} onChange={(e) => setPayment(e.target.value)} checked={delivery===`${index}`} required /> {categories.payment_options[index].payment_option}</label></div>
+    return <div className="form-group"><label style={{fontSize:"16px"}}><input type="radio" name="payment" value={index} key={index} onChange={(e) => setPayment(e.target.value)} required /> {categories.payment_options[index].payment_option}</label></div>
     })}
 
     </div>
 
     <div className="col-sm-12" style={{padding:"0px"}}>
     <Link to="/checkout" className="gen-btn float-left">Checkout</Link>
-    {loginConfirmation ? <button type="submit" className="btn gen-btn float-right"><FaRegMoneyBillAlt /> Place Order</button> : tempError ? <Link onClick={()=>{setTempError(false); setPageIndex(pageIndex + 1);}} className="gen-btn float-right">Reload</Link> : <FaSpinner className="fa-spin float-right" />}
+    {loginConfirmation ? <button type="submit" onClick={()=>setGrandTotal(grand_total + delivery_amount)} className="btn gen-btn float-right" disabled={submitLoader}>{submitLoader ? <FaSpinner className="fa-spin" /> : <FaRegMoneyBillAlt />} Place Order</button> : tempError ? <Link onClick={()=>{setTempError(false); setPageIndex(pageIndex + 1);}} className="gen-btn float-right">Reload</Link> : <FaSpinner className="fa-spin float-right" />}
     </div>
     </form>
     </>

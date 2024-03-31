@@ -23,14 +23,12 @@ const Footer = () => {
         data: {name,email},
     })
     .then(res => {
-        console.log(res);
         setNewsletterRotate(false); 
         setName("");
         setEmail("");
         setNewsletterMsg(<SuccessMsg res={res} />);
     })
     .catch(err => {
-        console.log(err);
         setNewsletterRotate(false);
         setNewsletterMsg(<ErrMsg err={err} />);
     })

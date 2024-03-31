@@ -1,7 +1,7 @@
 import React, {useState, useContext} from 'react';
 import {Link, useNavigate} from "react-router-dom";
 import DataContext from '../context/DataContext';
-import { FaMapMarkerAlt, FaUser, FaRegEnvelope, FaPhone, FaEye, FaPencilAlt } from "react-icons/fa";
+import { FaMapMarkerAlt, FaUser, FaRegEnvelope, FaPhone, FaEye, FaPencilAlt, FaFileAlt } from "react-icons/fa";
 import { AppName, AppCurr, FormatNumber } from '../components/General';
 import {decode} from 'html-entities';
 
@@ -81,7 +81,7 @@ const Checkout = () => {
     
     <label htmlFor="note">Additional Note</label>
     <div className="form-group input-group">
-    <span className="input-group-addon"><FaMapMarkerAlt /></span>
+    <span className="input-group-addon"><FaFileAlt /></span>
     <textarea name="note" id="note" className="form-control" rows="2" placeholder="Additional note to the order" defaultValue={note} onChange={(e) => setNote(e.target.value)}></textarea>
     </div>
     

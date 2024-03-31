@@ -1,0 +1,7 @@
+.table tr th, .table tr td{
+text-align:center;
+}
+.table tr th.group-title{
+background: #c03141; 
+color:#fff;
+}

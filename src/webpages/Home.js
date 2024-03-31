@@ -12,7 +12,7 @@ import swal from 'sweetalert';
 const Home = () => {
     const [pageContent, setPageContent] = useState("");
     const [pageIndex, setPageIndex] = useState("");
-    const {user, cartItems, handleCart, handleCartItems, SuccessToast} = useContext(DataContext);
+    const {user, cartItems, handleCart, handleCartItems, SuccessToast, ErrorToast} = useContext(DataContext);
     const navigate = useNavigate();
 
     const title = "Home | " + AppName;
@@ -50,7 +50,7 @@ const Home = () => {
             setPageContent(res.data);
         })
         .catch(err => {
-            console.log(err);
+            ErrorToast(err.response.data.message);
         });
 
     }, [user]);

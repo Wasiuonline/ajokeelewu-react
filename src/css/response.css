@@ -1,0 +1,12 @@
+.content-container a.manage{
+padding:10px;
+color:#2387a0;
+font-weight:bold;
+}
+.content-container a.manage:hover{
+color:#127690;
+text-decoration:none;
+}
+.btn-primary *{
+color: #fff!important;
+}

@@ -16,7 +16,7 @@ const Details = () => {
     const [itemTitle, setItemTitle] = useState("");
     const [itemSize, setItemSize] = useState(0);
     const [itemQty, setItemQty] = useState(1);
-    const {user, cartItems, handleCart, handleCartItems, SuccessToast} = useContext(DataContext);
+    const {user, cartItems, handleCart, handleCartItems, SuccessToast, ErrorToast} = useContext(DataContext);
     const navigate = useNavigate();
 
     const title = itemTitle ? itemTitle.split(" - ")[1] + " - " + itemTitle.split(" - ")[3] + " | " + AppName : AppName;
@@ -57,7 +57,7 @@ const Details = () => {
             setPageContent(res.data);
         })
         .catch(err => {
-            console.log(err);
+            ErrorToast(err.response.data.message);
         });
 
     }, [itemSlug]);
