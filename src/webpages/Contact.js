@@ -64,7 +64,7 @@ const Contact = () => {
 
         <form method="post" className="special-form" id="contact-result" onSubmit={handleSubmitContact}>  
 
-        <div className="special-title border-radius"><FaRegEnvelope /> Send us a mail</div>
+        <div className="special-title border-radius"><FaRegEnvelope style={{fontSize:"25px"}} /> Send us a mail</div>
         <fieldset className="border-radius">
 
         <div className="form-group input-group">
@@ -79,7 +79,7 @@ const Contact = () => {
 
         <div className="form-group input-group">
         <span className="input-group-addon"><FaPhone /></span>
-        <input type="text" name="phone" id="phone" className="form-control only-no" placeholder="Your Phone Number *" required value={phone} onChange={(e) => setPhone(e.target.value)} />
+        <input type="text" name="phone" id="phone" className="form-control only-no" placeholder="Your Phone Number *" required value={phone} onChange={(e) => setPhone(e.target.value.replace(/[^0-9.+]/gi, ""))} />
         </div>
 
         <div className="form-group input-group">

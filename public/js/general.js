@@ -1,5 +1,3 @@
-<!--
-
 if (self!=top)
 {
 top.location.href=self.location.href;
@@ -73,24 +71,6 @@ $(".search-link").click(function(){
 $(".search-form-guide").slideToggle();
 });
 
-///////////////////////////////////////////////////
-
-    //smoothscroll
-    $('a.nav_top').on('click', function (e) {
-        e.preventDefault();
-        $(document).off("scroll");
-		
-        var target = this.hash,
-            menu = target;
-        $target = $(target);
-        $('html, body').stop().animate({
-            'scrollTop': $target.offset().top+2
-        }, 500, 'swing', function () {
-            window.location.hash = target;
-            $(document).on("scroll", onScroll);
-        });
-    });
-
 //Zoom effect
 $('.item-picture img').hover(function() {
 	$(this).addClass('transition');
@@ -100,43 +80,6 @@ $('.item-picture img').hover(function() {
 /////////////////////////////////////
 
 });
-
-function comma_separator(x) {
-return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-}
-
-function my_confirm(conf_title,conf_text,conf_link){
-swal({
-  title: conf_title,
-  text: conf_text,
-  type: "warning",
-  showCancelButton: true,
-  confirmButtonColor: "#DD6B55",
-  confirmButtonText: "Yes",
-  closeOnConfirm: false
-},
-function(isConfirm){
-  if (isConfirm) {
-location.href = conf_link;
-  } else {
-return false;
-  }
-});
-}
-
-//////////////////////////////////////////////
-
-/////////////////////////////////////////
-function get_search(what, url){
-$.post(url, {search_item : what}, function(data){ 
-if(data == 1){
-document.getElementById(del_result).outerHTML = "";
-}
- }).error(function() { 
-alert("An error occured!");
-document.getElementById(del_loader).style.display = "none";
- });	
-}
 
 //Fly in effect
 var timer = 0;
@@ -179,5 +122,4 @@ $(function(){
   recheck();
 });
 ///////////////////////////////////////
-		
-//-->
+	

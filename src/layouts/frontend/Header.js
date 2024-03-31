@@ -1,20 +1,47 @@
-import React, {useContext, useState} from 'react';
-import DataContext from '../../context/DataContext';
+import React, {useContext, useState, useEffect} from 'react';
 import {Link, NavLink, useNavigate} from "react-router-dom";
-import { FaUser, FaSignInAlt, FaSpinner, FaLaptop, FaSignOutAlt, FaShoppingCart, FaSearch } from "react-icons/fa";
+import { FaUser, FaSignInAlt, FaSpinner, FaLaptop, FaSignOutAlt, FaShoppingCart, FaSearch, FaTimes } from "react-icons/fa";
 import { MdSpaceDashboard } from "react-icons/md";
+import { decode } from 'html-entities';
 import { Toaster } from 'react-hot-toast';
 import swal from 'sweetalert';
 import "../../css/style.css";
+import axios from '../../api/axios';
+import DataContext from '../../context/DataContext';
 
 const Header = () => {
-    const {user, cart, cartItems} = useContext(DataContext);
+
     const [search, setSearch] = useState("");
+    const [searchResponse, setSearchResponse] = useState("");
+    const [searchRotate, setSearchRotate] = useState(false);
+    const {user, cart, ErrorToast} = useContext(DataContext);
+
     const navigate = useNavigate();
-    const handleSearch = (e) => {
-    e.preventDefault();
-    setSearch("");
+
+    useEffect(() => {
+      setSearchRotate(true);
+      
+      if(search){
+      axios({
+          method: 'post',
+          url: "/search",
+          data: {search}
+      })
+      .then(res => {
+        setSearchRotate(false); 
+        setSearchResponse(res.data);
+        console.log(res.data);
+      })
+      .catch(err => {
+        setSearchRotate(false);
+        console.log(err);
+        ErrorToast(err.response.data.message);
+      })
+    }else{
+      setSearchRotate(false);
     }
+  }, [search]);
+
     const showSwal = () => {
         swal({
             title: "Logout Confirmation",
@@ -30,15 +57,32 @@ const Header = () => {
         <div className="header-wrapper header-wrapper1" id="bodyDiv">
         <div className="header header1">
         <div><Toaster/></div>
-        <form className="general-form col-sm-6" id="form-div" style={{overflow:"visible"}}>
+        <form className="general-form col-sm-6" id="form-div" style={{overflow:"visible", position:"relative"}}>
         <div className="form-group has-search" style={{marginBottom: "0px"}}>
-        <FaSearch className="form-control-feedback" />
-        <input type="text" className="form-control" name="search_item" id="search" placeholder="Enter product name here" value={search} onKeyUp={handleSearch} onChange={handleSearch} />
+        {searchRotate ? <FaSpinner className="form-control-feedback fa-spin" /> : <FaSearch className="form-control-feedback" /> }
+        <input type="text" className="form-control" id="search" placeholder="Enter product name here" value={search} onKeyUp={(e)=>setSearch(e.target.value)} onChange={(e)=>setSearch(e.target.value)} />
         </div>
-        <div className="member-search-wrapper" style={{overflow: "visible"}}>
-        <div id="member-search-loader" className="align-center"><FaSpinner className="fa-spin" /></div>
-        <div id="member-search-result" className="border-radius-bottom"></div>
+
+        {searchResponse ?
+        <div className="member-search-result border-radius-bottom">
+        <div><FaTimes onClick={()=>setSearchResponse("")} className="float-right" /></div>
+        <table className="cart-table table-striped table-hover search-table"><tbody>
+          
+        {Object.keys(searchResponse).map((index)=>{
+         return (
+          <tr key={index}>
+          <td style={{width:"50px", padding:"0"}}><Link style={{padding:"0"}} to={`/details/${searchResponse[index].item_slug}/1`} onClick={()=>setSearchResponse("")}><img src={searchResponse[index].file_name} alt={decode(searchResponse[index].item_name)} style={{width:"100%"}} /></Link></td>
+          <td><Link style={{padding:"0"}} to={`/details/${searchResponse[index].item_slug}/1`} onClick={()=>setSearchResponse("")}><b style={{color:"#966"}}>{decode(searchResponse[index].item_name)}</b></Link></td>
+          <td style={{width:"70px"}}>{decode(searchResponse[index].item_price)}</td>
+          </tr>
+          );
+        }
+        )}
+
+        </tbody></table>
         </div>
+        : "" }
+        
         </form>
         
         <div className="col-sm-6 log-links">
@@ -68,5 +112,6 @@ const Header = () => {
         </div>
         </div>
     );
+
 };
 export default Header;
