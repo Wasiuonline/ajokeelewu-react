@@ -5,11 +5,14 @@ import { MdSpaceDashboard } from "react-icons/md";
 import { decode } from 'html-entities';
 import { Toaster } from 'react-hot-toast';
 import swal from 'sweetalert';
+//import "../../css/portal.css";
+import { loadStyle } from '../../components/LoadFile';
 import axios from '../../api/axios';
 import DataContext from '../../context/DataContext';
 
-const Header = () => {
+const AdminHeader = () => {
 
+    loadStyle("../../css/portal.css");
     const [search, setSearch] = useState("");
     const [searchResponse, setSearchResponse] = useState("");
     const [searchRotate, setSearchRotate] = useState(false);
@@ -90,7 +93,7 @@ const Header = () => {
         {user ? <>
         <li><Link to="/customers"><FaUser /> My Portal</Link></li>
         {user.admin ?
-        <li><Link to="/aeadmin"><MdSpaceDashboard /> Admin</Link></li>
+        <li><Link to="/admin"><MdSpaceDashboard /> Admin</Link></li>
         :""
         }
         <li><Link onClick={()=>showSwal()}><FaSignOutAlt /> Logout</Link></li>
@@ -113,4 +116,4 @@ const Header = () => {
     );
 
 };
-export default Header;
+export default AdminHeader;

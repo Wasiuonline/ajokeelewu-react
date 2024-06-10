@@ -505,6 +505,155 @@ padding:20px;
 overflow-x:auto!important;
 }
 
+/*========= Portal Content ==========*/
+.portal-wrapper{
+max-width:1170px;
+margin:20px auto;
+display:table;
+width:100%;
+background:#fff;
+}
+.portal-wrapper .portal-content{
+display:table-cell;
+}
+.portal-wrapper .portal-nav{
+width:200px;
+height:500px;
+background:#333;
+margin-bottom:10px;
+}
+
+.portal-wrapper .portal-body{
+padding:10px;
+padding-top:0;
+}
+.portal-wrapper .portal-description{
+padding:10px;
+width:200px;
+}
+.portal-nav a{
+display:block;
+clear:both;
+padding:10px;
+color:#ddd;
+text-decoration:none;
+border-bottom:1px dotted #555;
+}
+.portal-nav a *{
+color:#ddd;
+}
+.portal-nav a:hover, .portal-nav a.active{
+background:#f33;
+}
+.portal-nav a.main-current{
+background:#d00;
+}
+
+.portal-nav .main-menu{
+text-align:center;
+background:#111;
+}
+.portal-nav .main-menu i{
+display:block;
+font-size:30px;
+}
+.portal-nav .sub-menu{
+display:none;
+}
+
+.page-title{
+padding:10px;
+color:#f11;
+font-size:25px;
+font-weight:bold;
+background:#f9f9f9;
+}
+
+/*=============Customers Dashboard=========*/
+.portal-body-wrapper{
+width:100%;
+margin-bottom:20px;
+}
+.portal-body-wrapper .home-nav{
+width:25%;
+float:left;
+padding:10px;
+}
+.portal-body-wrapper .home-nav a{
+text-decoration:none !important;
+}
+
+@media(max-width:1200px){
+.portal-body-wrapper .home-nav{
+width:50%;
+}
+}
+@media(max-width:900px){
+.portal-body-wrapper .home-nav{
+width:100%;
+}
+}
+@media(max-width:800px){
+.portal-body-wrapper .home-nav{
+width:50%;
+}
+}
+@media(max-width:500px){
+.portal-body-wrapper .home-nav{
+width:100%;
+}
+}
+.portal-body-wrapper .body-content{
+display:table;
+width:100%;
+}
+.portal-body-wrapper .body-content2{
+background:#ddd;
+padding:10px;
+}
+.portal-body-wrapper .body-content div.inner-content{
+display:table-cell;
+}
+.portal-body-wrapper .body-content div.icon-div{
+width:50px;
+padding-left:20px;
+text-align:left;
+vertical-align:middle;
+}
+.portal-body-wrapper .body-content div.icon-div svg{
+transform: scale(3.0);
+overflow:visible;
+}
+.portal-body-wrapper .body-content:hover{
+background:#000;
+color:#fff;
+}
+.portal-body-wrapper .body-content:hover *{
+color:#fff;
+}
+.portal-body-wrapper .grey-bg{
+    background:#ccc;
+}
+.portal-body-wrapper .grey-bg div{
+    width:70%; 
+    padding:7px;
+}
+.portal-body-wrapper .red *{
+color:#f33;
+}
+.portal-body-wrapper .green *{
+color:#5cb85c;
+}
+.portal-body-wrapper .brown *{
+color:#966;
+}
+.portal-body-wrapper .light-blue *{
+color:#5bc0de;   
+}
+.portal-body-wrapper .army-green *{
+color:#066;   
+}
+
 /* =========== Body Content ===================== */
 .container ul{
 margin-left:20px;
@@ -1037,7 +1186,9 @@ height:50px;
 
 .footer-container .footer-social a{
 display:inline-block;
-padding:12px;
+padding: 17px 12px;
+padding-bottom: 0px;
+padding-left: 0px;
 width:40px;
 height:40px;
 background:#000;
@@ -1048,8 +1199,11 @@ background:#000;
 margin-left:8px;
 margin-right:8px;
 }
-.footer-container .footer-social a *{
-font-size:16px;
+.footer-container .footer-social a svg{
+    overflow:visible;
+    transform: scale(1.3);
+}
+.footer-container .footer-social a path{
 color:#fff;
 -webkit-transform: rotate(-45deg);
 -moz-transform: rotate(-45deg);
@@ -1059,7 +1213,7 @@ color:#fff;
 .footer-container .footer-social a:hover{
 background:#c03141;
 }
-.footer-container .footer-social a:hover *{
+.footer-container .footer-social a:hover path{
 color:#fff;
 }
 

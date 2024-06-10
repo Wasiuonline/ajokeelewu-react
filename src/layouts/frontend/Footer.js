@@ -1,6 +1,6 @@
 import React, {useState, useContext} from 'react';
 import {Link} from "react-router-dom";
-import { FaEnvelope, FaSpinner } from "react-icons/fa";
+import { FaEnvelope, FaSpinner, FaFacebookF, FaTwitter, FaGooglePlusG, FaPinterest, FaInstagram } from "react-icons/fa";
 import axios from '../../api/axios';
 import DataContext from '../../context/DataContext';
 
@@ -86,11 +86,11 @@ const Footer = () => {
 
 </form>
 <div className="footer-social align-center">
-<Link to="" title="Facebook" className="border-radius" ><i className="fa fa-facebook" aria-hidden="true"></i></Link>
-<Link to="" title="Twitter" className="border-radius" ><i className="fa fa-twitter" aria-hidden="true"></i></Link>
-<Link to="" title="Google +" className="border-radius" ><i className="fa fa-google-plus" aria-hidden="true"></i></Link>
-<Link to="" title="Pinterest" className="border-radius" ><i className="fa fa-pinterest-p" aria-hidden="true"></i></Link>
-<Link to="" title="Instagram" className="border-radius" ><i className="fa fa-instagram" aria-hidden="true"></i></Link>
+<Link to="" title="Facebook" className="border-radius"><FaFacebookF /></Link>
+<Link to="" title="Twitter" className="border-radius"><FaTwitter /></Link>
+<Link to="" title="Google +" className="border-radius"><FaGooglePlusG /></Link>
+<Link to="" title="Pinterest" className="border-radius"><FaPinterest /></Link>
+<Link to="" title="Instagram" className="border-radius"><FaInstagram /></Link>
 </div>
 </div>
 

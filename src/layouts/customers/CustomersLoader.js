@@ -1,6 +1,12 @@
-import CustomersHeader from './CustomersHeader';
-import CustomersFooter from './CustomersFooter';
 import CustomersNav from './CustomersNav';
-import Dashboard from '../../webpages/customers/Dashboard';
+import CustomersDashboard from '../../webpages/customers/CustomersDashboard';
+import Inbox from '../../webpages/customers/Inbox';
+import ManageOrders from '../../webpages/customers/ManageOrders';
+import PaymentNotifications from '../../webpages/customers/PaymentNotifications';
+import Profile from '../../webpages/customers/Profile';
+import ResetPassword from '../../webpages/customers/ResetPassword';
+import SavedItems from '../../webpages/customers/SavedItems';
+import SentMessages from '../../webpages/customers/SentMessages';
+import TransactionLog from '../../webpages/customers/TransactionLog';
 
-export {CustomersHeader, CustomersFooter, CustomersNav, Dashboard};
+export {CustomersNav, CustomersDashboard, Inbox, ManageOrders, PaymentNotifications, Profile, ResetPassword, SavedItems, SentMessages, TransactionLog};

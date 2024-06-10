@@ -1,8 +1,10 @@
 import React, {useContext} from "react";
 import {Home, About, Contact, Cat, Details, Cart, Checkout, Preview, PaystackResponse, BankDeposit, PaymentOptions, SizeGuide, Delivery, ExchangeAndReturns, Login, Register, Logout, ForgotPassword, Missing} from '../layouts/frontend/FrontEndLoader';
 import FrontEndLayout from "../layouts/frontend/FrontEndLayout";
-import {Dashboard} from '../layouts/customers/CustomersLoader';
+import {CustomersDashboard, Inbox, ManageOrders, PaymentNotifications, Profile, ResetPassword, SavedItems, SentMessages, TransactionLog} from '../layouts/customers/CustomersLoader';
 import CustomersLayout from "../layouts/customers/CustomersLayout";
+import {AdminDashboard} from '../layouts/aeadmin/AdminLoader';
+import AdminLayout from "../layouts/aeadmin/AdminLayout";
 import HomeRedirect from "../components/HomeRedirect";
 import DataContext from '../context/DataContext';
 
@@ -14,8 +16,8 @@ const WebRoute = () => {
     return(
         
         <Routes>
-        <Route element={user?<CustomersLayout />:<HomeRedirect />}>
-        <Route exact path = "/customers" element = {<Dashboard />} />
+        <Route path = "/aeadmin" element={user?<AdminLayout />:<HomeRedirect />}>
+        <Route index element = {<AdminDashboard />} />
         </Route>
         <Route element={<FrontEndLayout />}>
         <Route exact index element = {<Home />} />
@@ -37,6 +39,17 @@ const WebRoute = () => {
         <Route exact path = "/register" element = {<Register />} />
         <Route exact path = "/logout" element = {<Logout />} />
         <Route exact path = "/forgot-password" element = {<ForgotPassword />} />
+        <Route path = "/customers" element={user?<CustomersLayout />:<HomeRedirect />}>
+        <Route path = "" element = {<CustomersDashboard />} />
+        <Route path = "inbox" element = {<Inbox />} />
+        <Route path = "manage-orders" element = {<ManageOrders />} />
+        <Route path = "payment-notifications" element = {<PaymentNotifications />} />
+        <Route path = "profile" element = {<Profile />} />
+        <Route path = "reset-password" element = {<ResetPassword />} />
+        <Route path = "saved-items" element = {<SavedItems />} />
+        <Route path = "sent-messages" element = {<SentMessages />} />
+        <Route path = "transaction-log" element = {<TransactionLog />} />
+        </Route>
         <Route path = "*" element = {<Missing />} />
         </Route>
         </Routes>        

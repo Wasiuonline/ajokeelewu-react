@@ -53,19 +53,5 @@ sweetAlert("Notice", "Atleast one " + conf_text + " must be selected.", "error")
 }
 });
 
-///////////////////////////////////////////
-$( ".gen-date" ).datepicker({
-dateFormat: "yy-mm-dd",
-changeMonth: true,
-changeYear: true,
-yearRange: "1901:2100"
-});
-
-$(".js-example-basic-single").select2();
-
-///////////////////////////////////////////
-$("#ufile").change(function(){
-$(".img-form").submit();
-});
 
 });

@@ -1,16 +1,25 @@
 import React from "react";
 import {Outlet} from "react-router-dom";
 
-import {CustomersHeader, CustomersNav, CustomersFooter} from './CustomersLoader';
+import {CustomersNav} from './CustomersLoader';
 
 const CustomersLayout = () => {
 
-    return (<>
-    <CustomersHeader />
+    return (
+    <div class="portal-wrapper">
+
     <CustomersNav />
+    
+    <div class="portal-body portal-content">
+    {/* <div class="<?php echo (basename($_SERVER["PHP_SELF"],".php") == "index")?"portal-body-wrapper":"body-content form-div"; ?>"> */}
+
     <Outlet />
-    <CustomersFooter /> 
-    </>)
+
+    </div>
+    
+    </div>
+    )
+    
 }
 
 export default CustomersLayout;

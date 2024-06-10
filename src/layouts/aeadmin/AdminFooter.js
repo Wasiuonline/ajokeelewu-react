@@ -4,7 +4,7 @@ import { FaEnvelope, FaSpinner } from "react-icons/fa";
 import axios from '../../api/axios';
 import DataContext from '../../context/DataContext';
 
-const Footer = () => {
+const AdminFooter = () => {
 
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
@@ -58,7 +58,7 @@ const Footer = () => {
 
 <div className="col-sm-4 nav-link">
 <div className="title btn">QUICK LINKS</div>
-<Link to="/" className=""><i className="fa fa-home" aria-hidden="true"></i> Home</Link>
+<Link onClick={() => window.location.href = "/"} className=""><i className="fa fa-home" aria-hidden="true"></i> Home</Link>
 <Link to="/about" className=""><i className="fa fa-university" aria-hidden="true"></i> About Us</Link>
 <Link to="/contact" className=""><i className="fa fa-phone" aria-hidden="true"></i> Contact Us</Link>
 <Link to="/payment-options" className=""><i className="fa fa-money" aria-hidden="true"></i> Payment Options</Link>
@@ -107,4 +107,4 @@ const Footer = () => {
         </>
     );
 };
-export default Footer;
+export default AdminFooter;
